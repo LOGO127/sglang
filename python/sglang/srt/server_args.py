@@ -73,6 +73,13 @@ from sglang.srt.utils.network import NetworkAddress, get_free_port, wait_port_av
 
 logger = logging.getLogger(__name__)
 
+# Re-exported. These were importable from this module while the field
+# declarations that used them lived here; the declarations moved to
+# `arg_groups/fields/` but out-of-tree code -- and `tokenizer_control_mixin`
+# for `LoRARef` -- still reaches them through `sglang.srt.server_args`.
+from sglang.srt.arg_groups.arg_utils import NS, A, Arg  # noqa: F401
+from sglang.srt.arg_groups.argparse_actions import LoRAPathAction  # noqa: F401
+
 # Re-exported for out-of-tree plugins, which have always reached these
 # through `sglang.srt.server_args`. The lists and their adders moved to
 # `arg_groups/choices.py` with the field declarations that name them.
@@ -155,6 +162,18 @@ from sglang.srt.arg_groups.fields.serving import (
 )
 from sglang.srt.arg_groups.fields.spec import (
     Spec,
+)
+from sglang.srt.lora.lora_registry import LoRARef  # noqa: F401
+from sglang.srt.model_executor.cuda_graph_config import (  # noqa: F401
+    CudaGraphConfig,
+    parse_cuda_graph_config_arg,
+)
+from sglang.srt.utils.common import (  # noqa: F401
+    LORA_TARGET_ALL_MODULES,
+    SUPPORTED_LORA_TARGET_MODULES,
+    human_readable_int,
+    json_list_type,
+    nullable_str,
 )
 
 
